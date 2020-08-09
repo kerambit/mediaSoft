@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Checklist;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ChecklistController extends Controller
 {
@@ -14,7 +16,11 @@ class ChecklistController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+
+        $checklist = Checklist::where('user_id', $user->id)->get();
+
+        return view('checklist.index')->with('checklist', $checklist);
     }
 
     /**
@@ -24,7 +30,7 @@ class ChecklistController extends Controller
      */
     public function create()
     {
-        //
+        return view('checklist.create');
     }
 
     /**
@@ -35,7 +41,19 @@ class ChecklistController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required|max:45',
+        ]);
+
+        $user = Auth::user();
+
+        $validatedData['user_id'] = $user->id;
+
+        Checklist::create($validatedData);
+
+        return redirect()
+            ->route('checklist.index')
+            ->with('status', 'Список создан');
     }
 
     /**
@@ -46,7 +64,9 @@ class ChecklistController extends Controller
      */
     public function show(Checklist $checklist)
     {
-        //
+        $checklist->load('tasks');
+
+        return view('checklist.show')->with('checklist', $checklist);
     }
 
     /**
