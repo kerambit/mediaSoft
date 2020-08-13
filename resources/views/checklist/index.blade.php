@@ -14,5 +14,6 @@
                 <li class="list-group-item"><a href="{{ route('checklist.show', $list->id) }}">{{ $list->title }}</a></li>
             @endforeach
         </ul>
+        <a href="{{ route('checklist.create') }}" class="btn btn-primary">Создать</a>
     @endif
 @endsection

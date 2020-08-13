@@ -36,6 +36,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('checklist.index') }}">Список ваших листов</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('user.index') }}">Админ панель</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

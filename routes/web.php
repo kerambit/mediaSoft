@@ -14,7 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@home')->name('home');
+
+Route::post('/tasks', 'ChecklistController@storeTasks')->name('tasks.store');
+Route::put('/tasks/{task}', 'ChecklistController@updateTasks')->name('tasks.update');
+
+Route::delete('/tasks/{task}', 'ChecklistController@destroyTask')->name('task.destroy');
+Route::get('/tasks/{task}/edit', 'ChecklistController@editTask')->name('task.edit');
+Route::put('/task/{task}', 'ChecklistController@updateTask')->name('task.update');
 
 Route::resource('checklist', 'ChecklistController');
 Route::resource('user', 'HomeController');
