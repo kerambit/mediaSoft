@@ -50,6 +50,14 @@ class ChecklistController extends Controller
 
         $user = Auth::user();
 
+        $user->load('checklists');
+
+        if ($user->checklist_limit == count($user->checklists)){
+            return redirect()
+                ->route('checklist.index')
+                ->with('status', 'У вас максимальное количество списков');
+        }
+
         $validatedData['user_id'] = $user->id;
 
         Checklist::create($validatedData);
@@ -153,13 +161,20 @@ class ChecklistController extends Controller
     {
         $tasks = Task::where('checklist_id', $request->checklist_id)->get();
 
-        foreach ($tasks as $task){
-            if (array_key_exists($task->id, $request->checked)){
-                $task->checked = true;
-                $task->save();
-            } else {
+        if ($request->checked == null){
+            foreach ($tasks as $task) {
                 $task->checked = false;
                 $task->save();
+            }
+        } else {
+            foreach ($tasks as $task){
+                if (array_key_exists($task->id, $request->checked)){
+                    $task->checked = true;
+                    $task->save();
+                } else {
+                    $task->checked = false;
+                    $task->save();
+                }
             }
         }
 

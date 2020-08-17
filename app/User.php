@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'checklist_limit', 'email', 'password',
+        'name', 'checklist_limit', 'banned', 'email', 'password',
     ];
 
     /**
@@ -43,5 +43,21 @@ class User extends Authenticatable
     public function roles()
     {
         return $this->belongsToMany('App\Role');
+    }
+
+    /**
+     * The checklists that belong to the user.
+     */
+    public function checklists()
+    {
+        return $this->hasMany('App\Checklist');
+    }
+
+    /**
+     * The tasks that belong to the user.
+     */
+    public function tasks()
+    {
+        return $this->hasMany('App\Task', 'user_id', 'id');
     }
 }

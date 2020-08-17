@@ -25,3 +25,5 @@ Route::put('/task/{task}', 'ChecklistController@updateTask')->name('task.update'
 
 Route::resource('checklist', 'ChecklistController');
 Route::resource('user', 'HomeController');
+Route::put('/user/banned/{user}', 'HomeController@restore')->name('user.restore');
+Route::get('/user/{user}/{checklist}', 'HomeController@showChecklist')->name('user.checklist.show');
