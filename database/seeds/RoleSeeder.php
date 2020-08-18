@@ -11,6 +11,10 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(\App\Role::class)->state('Admin')->create();
+
+        factory(\App\Role::class)->state('Manager')->create();
+
+        factory(\App\Role::class)->create();
     }
 }
