@@ -207,7 +207,6 @@ class ChecklistController extends Controller
 
         $validatedData = $request->validate([
             'text' => 'required|max:45',
-            'text' => 'required|max:45',
             'checklist_id' => 'required',
             'user_id' => Rule::in($user->id),
             'checked' => 'required'

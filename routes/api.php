@@ -18,4 +18,7 @@ Route::post('/login', 'Auth\LoginController@login');
 
 Route::middleware('auth:api')->group(function () {
     Route::resource('checklist', 'ApiController');
+    Route::post('/tasks', 'ApiController@storeTask');
+    Route::put('/tasks/{task}', 'ApiController@updateTask');
+    Route::delete('/tasks/{task}', 'ApiController@destroyTask');
 });
